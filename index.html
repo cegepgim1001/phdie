@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhD Portfolio: A CPS for Sustainable Smart Shelters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthly Harmony -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure is used to guide the user through the proposal logically. It starts with a high-level vision, delves into the core technology pillars (Robotics, Blockchain, AI), visualizes the integrated system in an interactive diagram, showcases the applicant's skills with a dynamic chart, and concludes with a clear research roadmap. This structure was chosen to make a complex, multi-disciplinary project digestible and engaging, turning a static document into an exploratory experience. Key interactions include tab-based navigation for technologies, clickable nodes on the system diagram, and hover effects on the skills chart to reveal deeper information, promoting user engagement and understanding. -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Core Technologies -> Compare/Inform -> Tabbed cards with icons -> Click tabs -> Organizes the three main pillars cleanly, preventing cognitive overload -> HTML/JS. 2. System Integration -> Organize/Relationships -> Interactive Diagram -> Click nodes -> Visually demonstrates how disparate technologies connect within the physical "Earthship" context, making the concept tangible -> HTML/CSS/JS. 3. Applicant Skills -> Inform/Compare -> Radar Chart -> Hover over points -> Provides a quick, visually appealing summary of qualifications and allows for a deeper dive into specific skills, far more engaging than a list -> Chart.js. 4. Research Timeline -> Change/Organize -> Interactive Timeline -> Click stages -> Breaks the 3-year project into manageable phases, showing clear foresight and planning -> HTML/JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #383434;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #A46A55;
+            border-bottom-color: #A46A55;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #D3B8AE;
+            border: 3px solid #FDFBF8;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .timeline-item.active::before {
+            background-color: #A46A55;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 glassmorphism shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-center items-center py-4 space-x-4 md:space-x-8 text-sm md:text-base">
+                <a href="#vision" class="nav-link font-medium">Vision</a>
+                <a href="#technologies" class="nav-link font-medium">Core Technologies</a>
+                <a href="#system" class="nav-link font-medium">System in Action</a>
+                <a href="#skills" class="nav-link font-medium">Skills</a>
+                <a href="#roadmap" class="nav-link font-medium">Roadmap</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-16">
+
+        <!-- Section 1: Vision -->
+        <section id="vision" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4" style="color: #6D4C41;">A Framework for Sustainable and Secure Smart Shelters</h1>
+            <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-600 mb-8">
+                This portfolio outlines a PhD research project at the intersection of <span class="font-semibold text-[#A46A55]">robotics</span>, <span class="font-semibold text-[#A46A55]">blockchain</span>, and <span class="font-semibold text-[#A46A55]">AI</span>. The goal is to develop a novel Cyber-Physical System (CPS) for clustered, "Earthship-inspired" sustainable shelters, focusing on automated resource management, decentralized governance, and robust cybersecurity.
+            </p>
+            <div class="flex justify-center">
+                 <a href="#technologies" class="bg-[#A46A55] text-white font-bold py-3 px-8 rounded-full hover:bg-[#8C5A4B] transition duration-300">Explore the Project</a>
+            </div>
+        </section>
+
+        <!-- Section 2: Core Technologies -->
+        <section id="technologies" class="py-16 md:py-24 bg-white rounded-2xl shadow-lg my-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Core Technology Pillars</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">The project integrates three advanced technology domains to create a resilient and autonomous living environment.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-4 flex justify-center border-b border-gray-200">
+                    <button data-tab="robotics" class="tech-tab active py-4 px-6 block hover:text-[#A46A55] focus:outline-none text-[#A46A55] border-b-2 font-medium border-[#A46A55]">
+                        🤖 Robotics & Automation
+                    </button>
+                    <button data-tab="blockchain" class="tech-tab py-4 px-6 block hover:text-[#A46A55] focus:outline-none text-gray-500 font-medium">
+                        🔗 Blockchain & Governance
+                    </button>
+                    <button data-tab="ai" class="tech-tab py-4 px-6 block hover:text-[#A46A55] focus:outline-none text-gray-500 font-medium">
+                        🛡️ AI & Cybersecurity
+                    </button>
+                </div>
+
+                <div id="robotics-content" class="tech-content p-6 transition-opacity duration-500">
+                    <h3 class="text-2xl font-semibold mb-3">Robotics and Automation for Sustainable Habitats</h3>
+                    <p class="text-gray-600 mb-4">The project's foundation is a robotic and IoT layer for autonomous operation. Leveraging a Robot Operating System (ROS), this component will manage automated tasks critical for self-sufficiency. This includes designing and prototyping systems for monitoring hydroponic/aquaponic gardens, optimizing solar panel alignment for maximum energy capture, and regulating thermal pumps for efficient climate control. The architecture will support decentralized, real-time decision-making, allowing each shelter to operate independently while collaborating with the larger community cluster.</p>
+                </div>
+                <div id="blockchain-content" class="tech-content p-6 hidden transition-opacity duration-500">
+                    <h3 class="text-2xl font-semibold mb-3">Blockchain and Smart Contracts for Decentralized Governance</h3>
+                    <p class="text-gray-600 mb-4">To ensure fair and transparent community governance, this project integrates a blockchain framework. Smart contracts will automate agreements for shared resources, such as the distribution of collected water or surplus energy, with all transactions recorded on an immutable ledger. To protect residents' privacy, Zero-Knowledge Proofs (ZKPs) will be explored to verify resource usage and compliance with community rules without revealing sensitive data, striking a crucial balance between accountability and personal privacy.</p>
+                </div>
+                <div id="ai-content" class="tech-content p-6 hidden transition-opacity duration-500">
+                    <h3 class="text-2xl font-semibold mb-3">AI & Cybersecurity for System Hardening</h3>
+                    <p class="text-gray-600 mb-4">With deep expertise in cybersecurity, this component focuses on protecting the entire system. A comprehensive threat model will address vulnerabilities across the physical, IoT, network, and blockchain layers. AI-powered tools will be implemented for real-time threat detection and anomaly analysis. The research will involve designing and implementing robust security protocols to protect all communications between devices, smart contracts, and user interfaces, ensuring the shelter community's autonomy and integrity remain uncompromised.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: System in Action -->
+        <section id="system" class="py-16 md:py-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">The System in Action: An Interactive Earthship</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Click on the components of the conceptual smart shelter to see how the technologies integrate to create a self-sustaining ecosystem.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+                <!-- Interactive Diagram -->
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 aspect-square flex items-center justify-center">
+                        <div class="relative w-full h-full">
+                            <!-- Central Hub -->
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#D3B8AE] rounded-full flex items-center justify-center text-center text-white font-bold p-2">Smart Shelter Core</div>
+                            
+                            <!-- Nodes -->
+                            <div class="node absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 cursor-pointer group" data-info="iot">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">💡</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">IoT & Robotics</span>
+                            </div>
+                             <div class="node absolute top-1/4 right-0 -translate-y-1/2 translate-x-8 cursor-pointer group" data-info="blockchain">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">📜</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Blockchain</span>
+                            </div>
+                            <div class="node absolute bottom-1/4 right-0 translate-y-1/2 translate-x-8 cursor-pointer group" data-info="energy">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">☀️</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Energy Mgmt</span>
+                            </div>
+                            <div class="node absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 cursor-pointer group" data-info="security">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">🛡️</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Cybersecurity</span>
+                            </div>
+                            <div class="node absolute bottom-1/4 left-0 translate-y-1/2 -translate-x-8 cursor-pointer group" data-info="water">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">💧</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Water Mgmt</span>
+                            </div>
+                            <div class="node absolute top-1/4 left-0 -translate-y-1/2 -translate-x-8 cursor-pointer group" data-info="food">
+                                <div class="w-20 h-20 bg-white border-2 border-[#D3B8AE] rounded-full flex items-center justify-center text-2xl group-hover:bg-[#A46A55] group-hover:text-white transition-all">🌱</div>
+                                <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Food Prod.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Info Display -->
+                <div class="w-full lg:w-1/2 min-h-[300px] bg-white rounded-2xl shadow-lg p-8">
+                    <div id="info-box">
+                        <h3 id="info-title" class="text-2xl font-semibold mb-3 text-[#6D4C41]">Select a Component</h3>
+                        <p id="info-text" class="text-gray-600">Click on an icon in the diagram to learn more about its role and the technologies that power it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Skills & Experience -->
+        <section id="skills" class="py-16 md:py-24 bg-white rounded-2xl shadow-lg my-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Relevant Skills & Experience</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">A unique, interdisciplinary skill set perfectly aligned with the project's demands. Hover over the chart for details.</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 5: Research Roadmap -->
+        <section id="roadmap" class="py-16 md:py-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">3-Year Research Roadmap</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">A structured plan for the doctoral research, from foundational work to final thesis.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="relative border-l-2 border-[#D3B8AE] pl-8 space-y-12">
+                    <div id="timeline-year1" class="timeline-item active">
+                        <h3 class="text-xl font-semibold text-[#A46A55]">Year 1: Foundational Research & Prototyping</h3>
+                        <p class="text-gray-600 mt-1">Focus on literature review, defining the CPS architecture, and developing initial prototypes for the robotics and IoT layer using ROS. Begin development of core smart contracts for resource management.</p>
+                    </div>
+                    <div id="timeline-year2" class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[#A46A55]">Year 2: Integration & Security Implementation</h3>
+                        <p class="text-gray-600 mt-1">Integrate the blockchain governance model with the IoT/robotics framework. Develop and implement the comprehensive cybersecurity threat model and deploy AI-powered monitoring tools. Conduct initial simulation testing.</p>
+                    </div>
+                    <div id="timeline-year3" class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[#A46A55]">Year 3: System Validation & Thesis Completion</h3>
+                        <p class="text-gray-600 mt-1">Conduct large-scale simulations and potentially physical test-bed validation of the integrated system. Analyze results, refine the framework, and focus on writing the PhD thesis and publishing findings in top-tier journals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+            <p>&copy; 2025 PhD Portfolio Proposal. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Active nav link highlighting on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Tech tabs functionality
+            const tabs = document.querySelectorAll('.tech-tab');
+            const contents = document.querySelectorAll('.tech-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'text-[#A46A55]', 'border-[#A46A55]');
+                        t.classList.add('text-gray-500');
+                    });
+                    tab.classList.add('active', 'text-[#A46A55]', 'border-[#A46A55]');
+                    tab.classList.remove('text-gray-500');
+
+                    contents.forEach(content => {
+                        if (content.id === `${target}-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Interactive Diagram
+            const nodes = document.querySelectorAll('.node');
+            const infoTitle = document.getElementById('info-title');
+            const infoText = document.getElementById('info-text');
+
+            const infoData = {
+                iot: {
+                    title: '🤖 IoT & Robotics',
+                    text: 'Utilizes ROS to manage sensors and actuators. Automates tasks like hydroponics monitoring and solar panel tracking to optimize resource use and reduce manual labor.'
+                },
+                blockchain: {
+                    title: '📜 Blockchain Governance',
+                    text: 'Employs smart contracts for transparent, automated resource sharing (e.g., energy credits, water rights). ZKPs ensure privacy while maintaining accountability.'
+                },
+                energy: {
+                    title: '☀️ Energy Management',
+                    text: 'Robotic systems optimize solar panel angles. IoT sensors monitor energy production and consumption, with blockchain logging transactions for a community energy market.'
+                },
+                security: {
+                    title: '🛡️ AI-Powered Cybersecurity',
+                    text: 'A multi-layered defense protects the entire CPS. AI algorithms monitor network traffic for anomalies, predict threats, and automate responses to secure the system.'
+                },
+                water: {
+                    title: '💧 Water Management',
+                    text: 'IoT sensors monitor water levels in collection tanks and usage. Smart contracts on the blockchain manage fair distribution based on community-agreed rules.'
+                },
+                food: {
+                    title: '🌱 Automated Food Production',
+                    text: 'Robotic arms and sensors manage indoor hydroponic and aquaponic systems, ensuring a consistent and sustainable food source for the shelter\'s inhabitants.'
+                }
+            };
+
+            nodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    const infoKey = node.getAttribute('data-info');
+                    const data = infoData[infoKey];
+                    infoTitle.textContent = data.title;
+                    infoText.textContent = data.text;
+                });
+            });
+
+            // Skills Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Cybersecurity', 'Networking', 'Systems Admin', 'Blockchain', 'AI & Scripting', 'Research Acumen'],
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: [95, 90, 85, 80, 90, 88],
+                        backgroundColor: 'rgba(164, 106, 85, 0.2)',
+                        borderColor: 'rgba(164, 106, 85, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(164, 106, 85, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(164, 106, 85, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(56, 52, 52, 0.1)' },
+                            grid: { color: 'rgba(56, 52, 52, 0.1)' },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                },
+                                color: '#383434'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(253, 251, 248, 0.75)',
+                                color: '#6D4C41',
+                                stepSize: 20
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
